@@ -15,6 +15,7 @@ public class Tarefas implements Runnable {
 	private Gestor gestor;
 	private GestorDao dao;
 	private Diretorio diretorio = new Diretorio();
+	private TrabalharData td = new TrabalharData();
 	private String l;
 
 	public Tarefas(GestorDao dao) {
@@ -61,14 +62,13 @@ public class Tarefas implements Runnable {
 	public void salvar(String data, String horaInicial, String tronco, String ramal, String duracao, String origem,
 			String TipoLicacao, String duracaoToque, String ddr) throws IOException {
 		gestor = new Gestor();
-		TrabalharData td = new TrabalharData();
 
 		try {
 			gestor.setData_inicio(td.converteData(data + " " + horaInicial));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-       // business.setHoraFinal(SomaHora(horaInicial, duracao));
+		// business.setHoraFinal(SomaHora(horaInicial, duracao));
 		gestor.setTronco(tronco);
 		gestor.setRamal(ramal);
 		gestor.setDuracao(duracao);
