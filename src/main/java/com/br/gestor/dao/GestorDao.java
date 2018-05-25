@@ -15,9 +15,14 @@ public interface GestorDao extends CrudRepository<Gestor, Integer> {
 
 	@Query("select g from Gestor g where g.data_inicio >=?1")
 	List<Gestor> Listar(Date data);
-    
+
 	@Query("select g from Gestor g order by g.data_inicio desc")
 	List<Gestor> listarOrdem();
 
+	@Query("select count(*) from Gestor g where g.tipo =?1 ")
+	Long Entrada1(String dado);
 	
+	@Query("select count(*) from Gestor g where g.tipo =?1 and g.data_inicio >=?2  ")
+	Long Entrada(String dado, Date data);
+
 }

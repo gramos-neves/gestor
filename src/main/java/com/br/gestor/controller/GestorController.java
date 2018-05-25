@@ -1,5 +1,9 @@
 package com.br.gestor.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +38,31 @@ public class GestorController {
 	@RequestMapping("/gestor/lista")
 	public Iterable<Gestor> lista() {
 		return dao.listarOrdem();
+	}
+
+	@CrossOrigin
+	@RequestMapping("/gestor/dados")
+	public List dados() throws ParseException {
+		SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
+		Date t = new Date();
+		List<Object> dados = new ArrayList<>();
+		Long entrada = dao.Entrada("2", st.parse(st.format(t)));
+		Long saida = dao.Entrada("1", st.parse(st.format(t)));
+		Long Transf = dao.Entrada("35", st.parse(st.format(t)));
+		dados.add(entrada);
+		dados.add(saida);
+		dados.add(Transf);
+    	return dados;
+	}
+
+	@CrossOrigin
+	@RequestMapping("/gestor/dados2")
+	public String dados2() throws ParseException {
+		SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
+		Long entrada = dao.Entrada("2", st.parse("2018-05-25"));
+		Long saida = dao.Entrada("1", st.parse("2018-05-25"));
+		System.out.println("Entrada:" + entrada + " " + "Saida: " + saida);
+		return "String";
 	}
 
 }
