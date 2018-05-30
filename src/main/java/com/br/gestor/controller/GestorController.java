@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,8 +47,8 @@ public class GestorController {
 		SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
 		Date t = new Date();
 		List<Object> dados = new ArrayList<>();
-		Long entrada = dao.Entrada("2", st.parse(st.format(t)));
-		Long saida = dao.Entrada("1", st.parse(st.format(t)));
+		Long entrada = dao.Entrada("1", st.parse(st.format(t)));
+		Long saida = dao.Entrada("2", st.parse(st.format(t)));
 		Long Transf = dao.Entrada("35", st.parse(st.format(t)));
 		dados.add(entrada);
 		dados.add(saida);
@@ -63,6 +64,12 @@ public class GestorController {
 		Long saida = dao.Entrada("1", st.parse("2018-05-25"));
 		System.out.println("Entrada:" + entrada + " " + "Saida: " + saida);
 		return "String";
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value= {"/gestor/ramal/{ramal}"})
+	public List<Gestor> ramal(@PathVariable("ramal") String ramal){
+		return dao.Buscar(ramal);
 	}
 
 }
