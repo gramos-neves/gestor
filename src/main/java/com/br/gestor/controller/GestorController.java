@@ -17,6 +17,7 @@ import com.br.gestor.model.Gestor;
 import com.br.gestor.tarefas.*;
 
 @RestController
+@CrossOrigin
 public class GestorController {
 
 	@Autowired
@@ -35,13 +36,13 @@ public class GestorController {
 		return dao.listar();
 	}
 
-	@CrossOrigin
+
 	@RequestMapping("/gestor/lista")
 	public Iterable<Gestor> lista() {
 		return dao.listarOrdem();
 	}
 
-	@CrossOrigin
+
 	@RequestMapping("/gestor/dados")
 	public List dados() throws ParseException {
 		SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
@@ -56,7 +57,7 @@ public class GestorController {
     	return dados;
 	}
 
-	@CrossOrigin
+
 	@RequestMapping("/gestor/dados2")
 	public String dados2() throws ParseException {
 		SimpleDateFormat st = new SimpleDateFormat("yyyy-MM-dd");
@@ -66,10 +67,22 @@ public class GestorController {
 		return "String";
 	}
 	
-	@CrossOrigin
+
 	@RequestMapping(value= {"/gestor/ramal/{ramal}"})
 	public List<Gestor> ramal(@PathVariable("ramal") String ramal){
 		return dao.Buscar(ramal);
+	}
+	
+
+	@RequestMapping(value= {"/gestor/ramal/{numero}/{opcao}"})
+	public List<Gestor> ramal(@PathVariable("numero") String numero,@PathVariable("opcao") String opcao){
+		if(opcao.equals("Ramal")) {
+		   return	dao.Buscar(numero);
+		}else if(opcao.equals("Telefone")) {
+			return dao.BuscarTelefone(numero);
+		}
+		
+		return null;
 	}
 
 }

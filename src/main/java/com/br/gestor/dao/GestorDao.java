@@ -29,5 +29,9 @@ public interface GestorDao extends CrudRepository<Gestor, Integer> {
 	@Query("select g from Gestor g where g.ramal like ?1% order by g.data_inicio desc")
 	List<Gestor> Buscar(String ramal);
 	
+	// Buscar Telefone
+	@Query("select g from Gestor g where g.numero like ?1% order by g.data_inicio desc")
+	List<Gestor> BuscarTelefone(String telefone);
+	
 	
 }
